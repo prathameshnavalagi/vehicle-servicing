@@ -1,11 +1,33 @@
 import React, { Component } from "react";
-import { Input } from "reactstrap";
-
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as loginActions from "./actions";
 class Login extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            testCount: 0
+        };
+    }
+
+    onClickAdd = () => {
+        this.props.increaseCounter(this.state.testCount);
+    };
+    
+    onChangeCounter = e => {
+        this.setState({ testCount: e.target.value });
+    }; 
+
+    onClickReduce = () => {
+        let val = this.state.testCount - 1;
+        this.props.reduceCounter(val);
+        this.setState({ testCount: this.state.testCount - 1 });
+    };
+
     render(){
         return(
             <div>
-                <h3>Login to your account</h3>
+                {/* <h3>Login to your account</h3>
                 <form>
                     <div>
                         <Input
@@ -29,11 +51,43 @@ class Login extends Component{
                         value="LOG IN"
                         id="logInButton"
                         />
-                    </div>             
-                </form>
+                    </div>              */}
+                    <div>
+                        <h2>Counter in local state: {this.state.testCount}</h2>
+                    </div>
+                    <div>
+                        <h2>Counter in redux store: {this.props.testCount}</h2>
+                    </div>
+                    <div>
+                        <input 
+                        type="text"
+                        value={this.state.testCount}
+                        onChange={this.onChangeCounter}
+                        />
+                        (onChange event fired for this input field that updates the counter in local state)
+                    </div>
+                    <div>
+                        <button onClick={this.onClickAdd}>Update counter</button>(Updates counter in redux store)
+                    </div>
+                    <div>
+                        <button onClick={this.onClickReduce}>Reduce Counter</button>(Updates counter in redux store and local)
+                    </div>
+                {/* </form> */}
             </div>
         );
     }
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return { testCount: state.loginReducer.testCount };
+};
+
+const mapDispatchToProps = dispatch =>
+ bindActionCreators(
+    {
+        ...loginActions
+    },
+    dispatch
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

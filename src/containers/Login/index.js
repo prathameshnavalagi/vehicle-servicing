@@ -79,7 +79,7 @@ class Login extends Component{
 }
 
 const mapStateToProps = state => {
-    return { testCount: state.loginReducer.testCount };
+    return { testCount: state.login.testCount };
 };
 
 const mapDispatchToProps = dispatch =>

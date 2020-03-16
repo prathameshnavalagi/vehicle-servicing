@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
 import { Input } from 'reactstrap';
-import { bindActionCreators } from 'redux';
-import { connect } from "react-redux";
-import * as loginActions from "./actions";
 
-class Login extends Component{
-    render(){
-        return(
+class Contact extends Component{
+    render() {
+        return (
             <div>
-                <h2> Login </h2>
+                <h2>Contact Us</h2>
                 <form>
+                    Name
+                    <div>
+                        <Input
+                        type="text"
+                        className="form-control form-control-lg"
+                        />
+                    </div>
+                    <br></br>
+                    Email
+                    <div>
+                        <Input
+                        type="text"
+                        className="form-control form-control-lg"
+                        />
+                    </div>
+                    <br></br>
                     Phone Number
                     <div>
                         <Input
@@ -18,12 +31,11 @@ class Login extends Component{
                         />
                     </div>
                     <br></br>
-                    Password
+                    Message
                     <div>
                         <Input
-                        type="password"
+                        type="text"
                         className="form-control form-control-lg"
-                        maxLength="20"
                         />
                     </div>
                     <br></br>
@@ -31,14 +43,14 @@ class Login extends Component{
                         <Input
                         type="submit"
                         className="btn btn-primary w-100 mt-20"
-                        value="LOGIN"
-                        id="logInButton"
+                        value="SEND MESSAGE"
+                        id="registerButton"
                         />
                     </div>
                 </form>
-            </div>
+            </div>            
         );
-    }
+      }
 }
 
-export default Login;
+export default Contact;

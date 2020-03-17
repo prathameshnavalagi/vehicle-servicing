@@ -1,12 +1,25 @@
 import React, { Component } from "react";
 import { Input } from 'reactstrap';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+import classes from './index.css';
 
-class Register extends Component{
+const options = ['one', 'two', 'three'];
+const defaultOption = options[0];
+
+class Users extends Component{
     render(){
         return(
             <div>
-                <h2> Login </h2>
+                <h2>Add Users</h2>
                 <form>
+                    Category
+                    <div>                        
+                        <Dropdown options={options} onChange={this._onSelect} value={defaultOption}
+                        className={classes.Select} 
+                        placeholder="Select an option" />
+                    </div>
+                    <br></br>
                     Name
                     <div>
                         <Input
@@ -79,4 +92,4 @@ class Register extends Component{
     }
 }
 
-export default Register;
+export default Users;

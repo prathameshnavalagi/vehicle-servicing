@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import Layout from './components/Layout/Layout';
+import Layout from './website/components/Layout/Layout';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom';
-import Login from './containers/Login';
-import Home from './containers/HomePage';
-import Register from './containers/SignUp';
-import About from './containers/AboutUs';
-import Price from './containers/Price';
-import Offers from './containers/Offers';
-import Contact from './containers/ContactUs';
+import Login from './website/containers/Login';
+import Home from './website/containers/HomePage';
+import Register from './website/containers/SignUp';
+import About from './website/containers/AboutUs';
+import Price from './website/containers/Price';
+import Offers from './website/containers/Offers';
+import Contact from './website/containers/ContactUs';
+import Users from './admin/containers/AddUsers';
 
 class App extends Component {
   render() {
@@ -28,6 +29,7 @@ class App extends Component {
             <Route path="/pricing" component={ Price }/>
             <Route path="/offers" component={ Offers }/>
             <Route path="/contact" component={ Contact }/>
+            <Route path="/addUsers" component={ Users }/>
           </Switch>
         </Router>
       </div>

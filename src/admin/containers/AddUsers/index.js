@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { Input } from 'reactstrap';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import classes from './index.css';
+import classes from './users.css';
 
-const options = ['one', 'two', 'three'];
+const options = ['Customer', 'Employee'];
 const defaultOption = options[0];
 
-class Users extends Component{
+class AddingUsers extends Component{
     render(){
         return(
             <div>
@@ -92,4 +92,4 @@ class Users extends Component{
     }
 }
 
-export default Users;
+export default AddingUsers;

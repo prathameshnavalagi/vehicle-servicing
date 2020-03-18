@@ -1,13 +1,26 @@
 import React, { Component } from "react";
 import { Input } from 'reactstrap';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+import classes from '../ServiceRequest/users.css';
 
-class ManagingUsers extends Component{
+const options = ['Customer', 'Employee'];
+const defaultOption = options[0];
+
+class ServiceRequest extends Component{
     render(){
         return(
             <div>
-                <h2>Manage Users</h2>
-                <form>                   
-                    Name
+                <h2>Service Request</h2>
+                <form>
+                    Category
+                    <div>                        
+                        <Dropdown options={options} onChange={this._onSelect} value={defaultOption}
+                        className={classes.Select} 
+                        placeholder="Select an option" />
+                    </div>
+                    <br></br>                   
+                    Vehicle Name
                     <div>
                         <Input
                         type="text"
@@ -15,7 +28,7 @@ class ManagingUsers extends Component{
                         />
                     </div>
                     <br></br>
-                    Address
+                    Vehicle Model
                     <div>
                         <Input
                         type="text"
@@ -23,7 +36,7 @@ class ManagingUsers extends Component{
                         />
                     </div>
                     <br></br>
-                    City
+                    Vehicle Brand
                     <div>
                         <Input
                         type="text"
@@ -31,7 +44,7 @@ class ManagingUsers extends Component{
                         />
                     </div>
                     <br></br>
-                    Phone Number
+                    Vehicle Registration Number
                     <div>
                         <Input
                         type="text"
@@ -39,37 +52,22 @@ class ManagingUsers extends Component{
                         />
                     </div>
                     <br></br>
-                    Email
+                    Complaint
                     <div>
-                        <Input
-                        type="text"
-                        className="form-control form-control-lg"
-                        />
+                        <textarea name="complaint"/>
                     </div>
                     <br></br>
-                    Password
+                    Vehicle Delivery Type
                     <div>
-                        <Input
-                        type="password"
-                        className="form-control form-control-lg"
-                        maxLength="20"
-                        />
-                    </div>
-                    <br></br>
-                    Confirm Password
-                    <div>
-                        <Input
-                        type="password"
-                        className="form-control form-control-lg"
-                        maxLength="20"
-                        />
+                        <Input type="radio" name="vehicleType" value="pickup" />Pickup
+                        <Input type="radio" name="vehicleType" value="walkin" />Walk-in
                     </div>
                     <br></br>
                     <div>
                         <Input
                         type="submit"
                         className="btn btn-primary w-100 mt-20"
-                        value="UPDATE"
+                        value="SUBMIT"
                         id="registerButton"
                         />
                     </div>
@@ -79,4 +77,4 @@ class ManagingUsers extends Component{
     }
 }
 
-export default ManagingUsers;
+export default ServiceRequest;

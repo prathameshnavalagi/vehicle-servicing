@@ -12,7 +12,19 @@ import About from './website/containers/AboutUs';
 import Price from './website/containers/Price';
 import Offers from './website/containers/Offers';
 import Contact from './website/containers/ContactUs';
-import Users from './admin/containers/AddUsers';
+import AddingUsers from './admin/containers/AddUsers';
+import ManagingUsers from './admin/containers/ManageUsers';
+import ServiceRequest from './admin/containers/ServiceRequest';
+import NewService from './admin/containers/NewService';
+import PendingService from './admin/containers/PendingService';
+import VehicleCategory from './admin/containers/VehicleCategory';
+import Reports from './admin/containers/Reports';
+import CustomerEnquiry from './admin/containers/CustomerEnquiry';
+import CustomerServiceRequest from './customer/containers/ServiceRequest/index';
+import CustomerService from './customer/containers/Service/index';
+import CustomerServiceHistory from './customer/containers/ServiceHistory/index';
+import SupervisorService from './supervisor/containers/Service/index';
+import SupervisorServiceRequest from './supervisor/containers/ServiceRequest/index';
 
 class App extends Component {
   render() {
@@ -29,7 +41,19 @@ class App extends Component {
             <Route path="/pricing" component={ Price }/>
             <Route path="/offers" component={ Offers }/>
             <Route path="/contact" component={ Contact }/>
-            <Route path="/addUsers" component={ Users }/>
+            <Route path="/addUsers" component={ AddingUsers }/>
+            <Route path="/manageUsers" component={ ManagingUsers }/>
+            <Route path="/serviceRequest" component={ ServiceRequest }/>
+            <Route path="/newService" component={ NewService }/>
+            <Route path="/pendingService" component={ PendingService }/>
+            <Route path="/vehicleCategory" component={ VehicleCategory }/>
+            <Route path="/reports" component={ Reports }/>
+            <Route path="/customerEnquiry" component={ CustomerEnquiry }/>
+            <Route path="/customerServiceRequest" component={ CustomerServiceRequest }/>
+            <Route path="/customerService" component={ CustomerService }/>
+            <Route path="/customerServiceHistory" component={ CustomerServiceHistory }/>
+            <Route path="/supervisorService" component={ SupervisorService }/>
+            <Route path="/supervisorServiceRequest" component={ SupervisorServiceRequest }/>
           </Switch>
         </Router>
       </div>

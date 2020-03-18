@@ -1,0 +1,2 @@
+export const SAVE_USER_DATA = "SAVE_USER_DATA";
+export const ERROR_IN_USER_DATA = "ERROR_IN_USER_DATA";

@@ -6,7 +6,16 @@ class ManagingUsers extends Component{
         return(
             <div>
                 <h2>Manage Users</h2>
-                <form>                   
+                <form>    
+                    Search
+                    <div>
+                        <Input
+                            type="text"
+                            className="form-control form-control-lg"
+                        />
+                        <button>Search</button>
+                    </div>
+                    <br></br>               
                     Name
                     <div>
                         <Input

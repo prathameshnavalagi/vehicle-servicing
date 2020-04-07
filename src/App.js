@@ -27,8 +27,8 @@ import Reports from './admin/containers/Reports';
 import CustomerEnquiry from './admin/containers/CustomerEnquiry';
 
 //Customer
+import CustomerDashboard from './customer/containers/Dashboard/index';
 import CustomerServiceRequest from './customer/containers/ServiceRequest/index';
-import CustomerService from './customer/containers/Service/index';
 import CustomerServiceHistory from './customer/containers/ServiceHistory/index';
 
 //Supervisor
@@ -61,8 +61,8 @@ class App extends Component {
             <Route path="/reports" component={ Reports }/>
             <Route path="/customerEnquiry" component={ CustomerEnquiry }/>
 
+            <Route path="/customerDashboard" component={ CustomerDashboard }/>
             <Route path="/customerServiceRequest" component={ CustomerServiceRequest }/>
-            <Route path="/customerService" component={ CustomerService }/>
             <Route path="/customerServiceHistory" component={ CustomerServiceHistory }/>
             <Route path="/supervisorService" component={ SupervisorService }/>
             <Route path="/supervisorServiceRequest" component={ SupervisorServiceRequest }/>            

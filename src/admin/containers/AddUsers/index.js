@@ -7,14 +7,14 @@ class AddingUsers extends Component{
     constructor(props){
         super(props);
         this.state = {
-            category:'Customer',
-            name:'Sachin Jadhav',
-            address:'Katraj',
-            city:'Pune',
-            phoneNumber:'9579016622',
-            email:'Sachin.Jadhav@harbingergroup.com',
-            password:'Test@1234',
-            confirmPassword:'Test@1234'
+            category:'',
+            name:'',
+            address:'',
+            city:'',
+            phoneNumber:'',
+            email:'',
+            password:'',
+            confirmPassword:''
         }
         this.handleChange = this.handleChange.bind(this);
         this.register = this.register.bind(this);
@@ -80,7 +80,6 @@ class AddingUsers extends Component{
                             <option value="0">--SELECT--</option>
                             <option value="Customer">Customer</option>
                             <option value="Employee">Employee</option>
-
                         </Input>
                     </div>
                     <br></br>

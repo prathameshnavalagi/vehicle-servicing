@@ -22,17 +22,19 @@ class Login extends Component{
             password: this.state.password,
             phone: this.state.phoneNumber
         }
+        //alert(JSON.stringify(loginReqData));  
         axios.post('http://localhost:3600/auth',loginReqData)
         .then(response=>{
             alert(JSON.stringify(response));  
             alert(response.data.userrole.role_name); 
+            localStorage.setItem("userRole",response.data.userrole.role_name);
             if(response.data.userrole.role_name === "NORMAL_USER"){
                 alert("inside NORMAL_USER");  
                 this.props.history.push('/customerService');
                 window.location.reload();
             }else if(response.data.userrole.role_name === "ADMIN"){
                 alert("inside ADMIN");  
-                this.props.history.push('/addUsers');
+                this.props.history.push('/adminDashboard');
                 window.location.reload();
             }else{
                 alert("Website");

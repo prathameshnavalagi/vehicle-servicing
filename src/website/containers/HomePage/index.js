@@ -3,8 +3,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as loginActions from "./actions";
 class Home extends Component{
-
     render(){
+        localStorage.clear();
         return(
             <div>
                <h2> Home Page </h2>

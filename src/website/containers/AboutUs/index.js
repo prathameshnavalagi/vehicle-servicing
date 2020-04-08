@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
 
 class About extends Component{
-    render(){
+    render(){        
         return(
             <div>
                 <div>

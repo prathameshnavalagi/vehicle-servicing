@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-class SupervisorService extends Component{
+class SupervisorDashboard extends Component{
     render(){
         return(
             <div>
-                <h2>Supervisor Service</h2>
+                <h2>Supervisor Dashboard</h2>
             </div>
         );
     }
 }
 
-export default SupervisorService;
+export default SupervisorDashboard;

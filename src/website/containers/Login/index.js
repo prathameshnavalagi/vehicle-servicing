@@ -10,8 +10,8 @@ class Login extends Component{
     constructor(props){
         super(props);
         this.state = {
-            phoneNumber:'9876543210',
-            password:'Test@1234'
+            phoneNumber:'',
+            password:''
         }
         this.handleChange = this.handleChange.bind(this);
         this.login = this.login.bind(this);
@@ -27,6 +27,7 @@ class Login extends Component{
         .then(response=>{
             alert(JSON.stringify(response));  
             alert(response.data.userrole.role_name); 
+            localStorage.setItem("userToken",response.data.accessToken);
             localStorage.setItem("userRole",response.data.userrole.role_name);
             if(response.data.userrole.role_name === "NORMAL_USER"){
                 alert("inside NORMAL_USER");  
@@ -35,6 +36,10 @@ class Login extends Component{
             }else if(response.data.userrole.role_name === "ADMIN"){
                 alert("inside ADMIN");  
                 this.props.history.push('/adminDashboard');
+                window.location.reload();
+            }else if(response.data.userrole.role_name === "SUPERVISOR"){
+                alert("inside SUPERVISOR");  
+                this.props.history.push('/supervisorDashboard');
                 window.location.reload();
             }else{
                 alert("Website");

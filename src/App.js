@@ -14,6 +14,7 @@ import About from './website/containers/AboutUs';
 import Price from './website/containers/Price';
 import Offers from './website/containers/Offers';
 import Contact from './website/containers/ContactUs';
+import Logout from './website/containers/Logout';
 
 //Admin
 import AdminDashboard from './admin/containers/Dashboard';
@@ -32,7 +33,7 @@ import CustomerServiceRequest from './customer/containers/ServiceRequest/index';
 import CustomerServiceHistory from './customer/containers/ServiceHistory/index';
 
 //Supervisor
-import SupervisorService from './supervisor/containers/Service/index';
+import SupervisorDashboard from './supervisor/containers/Dashboard/index';
 import SupervisorServiceRequest from './supervisor/containers/ServiceRequest/index';
 
 class App extends Component {
@@ -64,8 +65,11 @@ class App extends Component {
             <Route path="/customerDashboard" component={ CustomerDashboard }/>
             <Route path="/customerServiceRequest" component={ CustomerServiceRequest }/>
             <Route path="/customerServiceHistory" component={ CustomerServiceHistory }/>
-            <Route path="/supervisorService" component={ SupervisorService }/>
-            <Route path="/supervisorServiceRequest" component={ SupervisorServiceRequest }/>            
+
+            <Route path="/supervisorDashboard" component={ SupervisorDashboard }/>
+            <Route path="/supervisorServiceRequest" component={ SupervisorServiceRequest }/>   
+
+            <Route path="/logout" component={ Logout }/>     
           </Switch>
         </Router>
       </div>

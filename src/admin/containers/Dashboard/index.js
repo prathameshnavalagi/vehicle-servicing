@@ -48,7 +48,6 @@ class AdminDashboard extends Component{
     render(){
         return(
             <div>
-                <h2>ADMIN DASHBOARD</h2>
                 <div>
                     <h3>Total Service Request:</h3>
                     {this.state.totalServiceRequestCount.status}

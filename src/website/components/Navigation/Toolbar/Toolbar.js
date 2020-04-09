@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from './Toolbar.css';
 console.log("in toolbar");
-//localStorage.setItem("userRole","any");
 console.log("userRole:", localStorage.getItem("userRole"));
+console.log("userToken:", localStorage.getItem("userToken"));
 const toolbar = () => {
     //userRole = localStorage.getItem("userRole");
     if(localStorage.getItem("userRole")==="ADMIN"){
@@ -10,6 +10,15 @@ const toolbar = () => {
             <header className={classes.Toolbar}>
                 <ul>
                     <li><a href="/adminDashboard">DASHBOARD</a></li>
+                    <li><a href="/addUsers">ADD USERS</a></li>
+                    <li><a href="/manageUsers">MANAGE USERS</a></li>
+                    <li><a href="/serviceRequest">SERVICE REQUEST</a></li>
+                    <li><a href="/newService">NEW SERVICE</a></li>
+                    <li><a href="/pendingService">PENDING SERVICE</a></li>
+                    <li><a href="/vehicleCategory">VEHICLE CATEGORY</a></li>
+                    <li><a href="/reports">REPORTS</a></li>
+                    <li><a href="/customerEnquiry">CUSTOMER ENQUIRY</a></li>
+                    <li><a href="/logout">LOGOUT</a></li>
                 </ul>
                 <nav>
                 </nav>
@@ -20,6 +29,21 @@ const toolbar = () => {
             <header className={classes.Toolbar}>
                 <ul>
                     <li><a href="/customerDashboard">DASHBOARD</a></li>
+                    <li><a href="/customerServiceRequest">SERVICE REQUEST</a></li>
+                    <li><a href="/customerServiceHistory">SERVICE HISTORY</a></li>
+                    <li><a href="/logout">LOGOUT</a></li>
+                </ul>
+                <nav>
+                </nav>
+            </header>           
+        )
+    }else if(localStorage.getItem("userRole")==="SUPERVISOR"){
+        return(           
+            <header className={classes.Toolbar}>
+                <ul>
+                    <li><a href="/supervisorDashboard">DASHBOARD</a></li>
+                    <li><a href="/supervisorServiceRequest">SERVICE REQUEST</a></li>
+                    <li><a href="/logout">LOGOUT</a></li>
                 </ul>
                 <nav>
                 </nav>

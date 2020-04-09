@@ -14,7 +14,7 @@ class CustomerDashboard extends Component{
         .then(response =>{
             //console.log(response.data);
             this.setState({vehicleServicingDetails: response.data.vehicle_service_req}) 
-            console.log(this.state.vehicleServicingDetails.updatedOn);
+            console.log(this.state.vehicleServicingDetails);
         })
         .catch(err=>{
             alert("err="+JSON.stringify(err));
@@ -33,7 +33,7 @@ class CustomerDashboard extends Component{
                     </thead>
                     <tbody>
                         <td>{this.state.vehicleServicingDetails.updatedOn}</td>
-                        {/* <td>{this.state.vehicleServicingDetails.category}</td> */}
+                        <td>{this.state.vehicleServicingDetails.category}</td>
                     </tbody>
                 </table>
             </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Layout from './website/components/Layout/Layout';
+import { ProtectedRoute } from './website/components/ProtectedRoute';
 import {
   BrowserRouter as Router,
   Switch,
@@ -43,7 +44,8 @@ class App extends Component {
         <Layout>
         </Layout>
         <Router>
-          <Switch>            
+          <Switch>   
+            {/* <Route path="*" component={() => "404 NOT FOUND"}/>          */}
             <Route exact path="/" component={ Home }/>
             <Route path="/login" component={ Login }/>
             <Route path="/register" component={ Register }/>
@@ -52,24 +54,24 @@ class App extends Component {
             <Route path="/offers" component={ Offers }/>
             <Route path="/contact" component={ Contact }/>
 
-            <Route path="/adminDashboard" component={ AdminDashboard }/>
-            <Route path="/addUsers" component={ AddingUsers }/>
-            <Route path="/manageUsers" component={ ManagingUsers }/>
-            <Route path="/serviceRequest" component={ ServiceRequest }/>
-            <Route path="/newService" component={ NewService }/>
-            <Route path="/pendingService" component={ PendingService }/>
-            <Route path="/vehicleCategory" component={ VehicleCategory }/>
-            <Route path="/reports" component={ Reports }/>
-            <Route path="/customerEnquiry" component={ CustomerEnquiry }/>
+            <ProtectedRoute path="/adminDashboard" component={ AdminDashboard }/>
+            <ProtectedRoute path="/addUsers" component={ AddingUsers }/>
+            <ProtectedRoute path="/manageUsers" component={ ManagingUsers }/>
+            <ProtectedRoute path="/serviceRequest" component={ ServiceRequest }/>
+            <ProtectedRoute path="/newService" component={ NewService }/>
+            <ProtectedRoute path="/pendingService" component={ PendingService }/>
+            <ProtectedRoute path="/vehicleCategory" component={ VehicleCategory }/>
+            <ProtectedRoute path="/reports" component={ Reports }/>
+            <ProtectedRoute path="/customerEnquiry" component={ CustomerEnquiry }/>
 
-            <Route path="/customerDashboard" component={ CustomerDashboard }/>
-            <Route path="/customerServiceRequest" component={ CustomerServiceRequest }/>
-            <Route path="/customerServiceHistory" component={ CustomerServiceHistory }/>
+            <ProtectedRoute path="/customerDashboard" component={ CustomerDashboard }/>
+            <ProtectedRoute path="/customerServiceRequest" component={ CustomerServiceRequest }/>
+            <ProtectedRoute path="/customerServiceHistory" component={ CustomerServiceHistory }/>
 
-            <Route path="/supervisorDashboard" component={ SupervisorDashboard }/>
-            <Route path="/supervisorServiceRequest" component={ SupervisorServiceRequest }/>   
+            <ProtectedRoute path="/supervisorDashboard" component={ SupervisorDashboard }/>
+            <ProtectedRoute path="/supervisorServiceRequest" component={ SupervisorServiceRequest }/>   
 
-            <Route path="/logout" component={ Logout }/>     
+            <Route path="/logout" component={ Logout }/>
           </Switch>
         </Router>
       </div>

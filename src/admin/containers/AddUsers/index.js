@@ -21,31 +21,44 @@ class AddingUsers extends Component{
     }
 
     register = () => {
-        //this.props.history.push('/customerService');
-        //alert();
         const addUserReqData = {
             category:this.state.category,
             name:this.state.name,
             address:this.state.address,
             city:this.state.city,
             email:this.state.email,
-            confirmPassword:this.state.confirmPassword,
             password: this.state.password,
             phone: this.state.phoneNumber,
             registration_date: new Date()
         }
-
-        axios.post('http://localhost:3600/Admin/addUsers/customer',addUserReqData)
-        .then(response=>{
-            alert("response="+JSON.stringify(response));
-            if(response.data.id!=null)
-                alert(response.statusText);
-            else
-                alert(response.data.error);
-        })
-        .catch(err => {
-            alert("err="+JSON.stringify(err));
-        })
+        alert("addUserReqData.." + JSON.stringify(addUserReqData));        
+        if(this.state.category==="Customer"){
+            axios.post('http://localhost:3600/Admin/addUsers/customer',addUserReqData)
+            .then(response=>{
+                alert("response="+JSON.stringify(response));
+                if(response.data.id!=null)
+                    alert(response.statusText);
+                else
+                    alert(response.data.error);
+            })
+            .catch(err => {
+                alert("err="+JSON.stringify(err));
+            })
+        }else if(this.state.category==="Employee"){
+            axios.post('http://localhost:3600/Admin/addUsers/employee',addUserReqData)
+            .then(response=>{
+                alert("response="+JSON.stringify(response));
+                if(response.data.id!=null)
+                    alert(response.statusText);
+                else
+                    alert(response.data.error);
+            })
+            .catch(err => {
+                alert("err="+JSON.stringify(err));
+            })
+        }else{
+            alert("Please Select Category");
+        }   
     }
     
     handleChange = (e,propertyName) =>{

@@ -29,9 +29,10 @@ class Login extends Component{
             alert(response.data.userrole.role_name); 
             localStorage.setItem("userToken",response.data.accessToken);
             localStorage.setItem("userRole",response.data.userrole.role_name);
+            localStorage.setItem("userId",response.data.userId);
             if(response.data.userrole.role_name === "NORMAL_USER"){
                 alert("inside NORMAL_USER");  
-                this.props.history.push('/customerService');
+                this.props.history.push('/customerServiceRequest');
                 window.location.reload();
             }else if(response.data.userrole.role_name === "ADMIN"){
                 alert("inside ADMIN");  

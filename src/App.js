@@ -16,6 +16,7 @@ import Price from './website/containers/Price';
 import Offers from './website/containers/Offers';
 import Contact from './website/containers/ContactUs';
 import Logout from './website/containers/Logout';
+import OtpVerification from './website/containers/otpVerification';
 
 //Admin
 import AdminDashboard from './admin/containers/Dashboard';
@@ -53,6 +54,7 @@ class App extends Component {
             <Route path="/pricing" component={ Price }/>
             <Route path="/offers" component={ Offers }/>
             <Route path="/contact" component={ Contact }/>
+            <Route path="/otpVerification" component={ OtpVerification }/>
 
             <ProtectedRoute path="/adminDashboard" component={ AdminDashboard }/>
             <ProtectedRoute path="/addUsers" component={ AddingUsers }/>

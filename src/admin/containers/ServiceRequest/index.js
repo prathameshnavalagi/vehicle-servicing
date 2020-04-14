@@ -45,14 +45,15 @@ class CustomerServiceRequest extends Component{
     
     handleChange = e => {
         //debugger;
-                let target = e.target;
-                let value = target.type == 'checkbox' ? target.checked : target.value;
-                let name = target.name;
-        
-                this.setState({
-                    [name]: value
-                });
-            }
+        let target = e.target;
+        let value = target.type == 'checkbox' ? target.checked : target.value;
+        let name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+    
     render(){
         return(
             <div>

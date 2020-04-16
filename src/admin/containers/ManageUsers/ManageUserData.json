@@ -1,0 +1,30 @@
+{
+	"data": [{
+			"name": "Rucha Kulkarni",
+			"email": "rucha.kulkarni@harbingergroup.com",
+			"password": "Test@1234",
+			"phone": "9689743507",
+			"address": "Chinchwad",
+			"city": "Pune",
+			"registration_date": "07 Dec 2019"
+		},
+		{
+			"name": "Prathamesh Navalagi",
+			"email": "Prathamesh.Navalagi@harbingergroup.com",
+			"password": "Test@1234",
+			"phone": "8552966929",
+			"address": "Wakad",
+			"city": "Pune",
+			"registration_date": "15 Apr 2020"
+		},
+		{
+			"name": "Sachin Jadhav",
+			"email": "Sachin Jadhav@harbingergroup.com",
+			"password": "Test@1234",
+			"phone": "9579016622",
+			"address": "Katraj",
+			"city": "Pune",
+			"registration_date": "15 Apr 2020"
+		}
+	]
+}

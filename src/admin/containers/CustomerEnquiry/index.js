@@ -30,7 +30,6 @@ class CustomerEnquiry extends Component{
                             <th>Date</th>
                             <th>Customer Name</th>
                             <th>Customer Message</th>
-                            {/* <th>Supervisor Name</th> */}
                         </tr>
                     </thead>
                     <tbody>

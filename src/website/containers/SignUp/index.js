@@ -39,6 +39,7 @@ class Register extends Component{
                 alert("Registered Successfully");
                 this.props.history.push('/login');
                 //this.props.history.push('/otpVerification');
+                window.location.reload();
             }else{
                 alert(response.data.error);
             }

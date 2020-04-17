@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Input } from 'reactstrap';
-import response from "./ManageUserData";
+import axios from 'axios';
 
 class ManagingUsers extends Component{    
     constructor(props){
@@ -29,60 +29,50 @@ class ManagingUsers extends Component{
     }
 
     getUser = () => {
-        //alert(this.state.phoneNumber);
+        //alert(this.state.searchedNumber);
         //alert("response.."+JSON.stringify(response));
-        if(this.state.searchedNumber === ''){
-            alert("Enter phone number to serach");
+        if(this.state.searchedNumber==""){
+            alert("Enter phone number to get user data");
         }else{
-            let userData = response.data;
-            //alert("userData.." + JSON.stringify(userData));
-            let dataPresent = false;
-            let presentUserData = {};
-            for(let user in userData){
-                if(this.state.searchedNumber === userData[user].phone){
-                    //alert("user from file.."+userData[user].phone);
-                    dataPresent = true;
-                    presentUserData = userData[user];
-                    alert("presentUserData.."+ JSON.stringify(presentUserData));
-                    break;
-                }else{
-                    dataPresent = false;
-                }
-            }
-            if(dataPresent){
-                alert("User present for "+ presentUserData.phone);
-                this.setState({
-                    name: presentUserData.name,
-                    address: presentUserData.address,
-                    city: presentUserData.city,
-                    phoneNumber: presentUserData.phone
-                })
-            }else{
-                alert("User for this phone number does not exist");
-            }
+                axios.get('http://localhost:3002/mock/getUser/'+this.state.searchedNumber)
+                .then(response=>{
+                    alert("response="+JSON.stringify(response));
+                    alert("status.."+response.status);
+                    if(response.status == 201){
+                        let userData = response.data;
+                        this.setState({
+                            phoneNumber:userData.phone,
+                            name:userData.name,
+                            address:userData.address,
+                            city:userData.city
+                        })
+                    }
+                    else{
+                        alert(response.statusText);
+                    }
+            })
+            .catch(err => {
+                alert("err="+JSON.stringify(err));
+            })
         }
     }
 
     updateUser = () => {
         alert("inside updateUser");
-        let userData = response.data;
-        const addUserReqData = {
-            category:this.state.category,
+        //let userData = response.data;
+        const updateUserDataReq = {
             name:this.state.name,
             address:this.state.address,
             city:this.state.city,
-            email:this.state.email,
-            password: this.state.password,
-            phone: this.state.phoneNumber,
-            registration_date: new Date()
+            phoneNumber: this.state.phoneNumber
         }
-        axios.post('http://localhost:3000/mock/updateUser',updateUserDataReq)
+        axios.post('http://localhost:3002/mock/updateUser',updateUserDataReq)
         .then(response=>{
             alert("response="+JSON.stringify(response));
-            if(response.data.id!=null)
-                alert(response.statusText);
+            if(response.data.status == 201)
+                alert(response.data.message);
             else
-                alert(response.data.error);
+                alert(response.statusText);
         })
         .catch(err => {
             alert("err="+JSON.stringify(err));

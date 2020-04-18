@@ -1,9 +1,9 @@
 var util = require('./util');
 var fs = require("fs");
-var path = 'D:/Prathamesh/workplace/vehicle-servicing/mock-api/manageUserData.json';
 
 exports.getUser = (req, res) => {
     console.log("inside getUser"); 
+    var path = 'D:/Prathamesh/workplace/vehicle-servicing/mock-api/manageUserData.json';
     try {         
         //console.log(req.params);
         if(req.params){
@@ -53,10 +53,11 @@ exports.getUser = (req, res) => {
     } catch (err) {
         res.status(500).send(util.internalServerError);
     }
-}
+};
 
 exports.updateUser = (req, res) => {
     console.log("inside updateUser");
+    var path = 'D:/Prathamesh/workplace/vehicle-servicing/mock-api/manageUserData.json';
     try {
         if(req.body){
             const reqParam = req.body;
@@ -97,6 +98,32 @@ exports.updateUser = (req, res) => {
         }else{
             res.status(400).send(util.badRequest);
         }
+    } catch (err) {
+        res.status(500).send(util.internalServerError);
+    }
+};
+
+exports.getNewServiceVehcileList = (req, res) => {
+    console.log("inside getNewServiceVehcileList"); 
+    var path = 'D:/Prathamesh/workplace/vehicle-servicing/mock-api/newServiceVehicleList.json';
+    try {         
+        //console.log(req.params);
+        fs.readFile(path, function(err, data) { 
+            if (err){
+                //console.log("err."+err);
+                res.status(500).send(util.internalServerError);
+            } else {
+                var vehicleData = {}
+                var vehicleDataArr = [];
+                vehicleData = JSON.parse(data);
+                vehicleDataArr = vehicleData.vehicleList;
+                if(vehicleDataArr.length > 0){
+                    res.status(201).send(vehicleDataArr);
+                }else{
+                    res.status(204).send(util.noDataFound);
+                }
+            }
+        });      
     } catch (err) {
         res.status(500).send(util.internalServerError);
     }

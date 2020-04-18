@@ -18,6 +18,7 @@ app.use(function (req, res, next) {
 
 app.get('/mock/getUser/:phone',controller.getUser);
 app.post('/mock/updateUser',controller.updateUser);
+app.get('/mock/getNewServiceVehcileList',controller.getNewServiceVehcileList);
 
 var server = app.listen(3002, function () {
    var host = server.address().address

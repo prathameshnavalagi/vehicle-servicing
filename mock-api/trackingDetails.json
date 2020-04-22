@@ -1,0 +1,46 @@
+{
+	"trackingData": [{
+			"trackingId": "1",
+			"vehicleList": [{
+					"date": "09/28/2019",
+					"vehicleType": "Honda Activa",
+					"status": "Done"
+				},
+				{
+					"date": "09/28/2019",
+					"vehicleType": "Honda City",
+					"status": "In progress"
+				},
+				{
+					"date": "09/28/2019",
+					"vehicleType": "Honda Activa",
+					"status": "Done"
+				}
+			]
+		},
+		{
+			"trackingId": "2",
+			"vehicleList": [{
+					"date": "09/28/2019",
+					"vehicleType": "Honda Activa",
+					"status": "Done"
+				},
+				{
+					"date": "09/28/2019",
+					"vehicleType": "Honda City",
+					"status": "In progress"
+				},
+				{
+					"date": "09/28/2019",
+					"vehicleType": "Honda Activa",
+					"status": "Done"
+				},
+				{
+					"date": "09/28/2019",
+					"vehicleType": "Honda Shine",
+					"status": "Done"
+				}
+			]
+		}
+	]
+}

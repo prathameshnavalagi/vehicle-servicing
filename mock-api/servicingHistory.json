@@ -1,0 +1,35 @@
+{
+    "history": [{
+            "date": "09/28/2019",
+            "vehicleType": "Honda Activa",
+            "status":{
+                "vehicleServicing": "Done",
+                "vehicleWashing": "In Progress"
+            }
+        },
+        {
+            "date": "09/28/2019",
+            "vehicleType": "Honda City",
+            "status": {
+                "vehicleServicing": "Done",
+                "vehicleWashing": "Done"
+            }
+        },
+        {
+            "date": "09/28/2019",
+            "vehicleType": "Honda Activa",
+            "status": {
+                "vehicleServicing": "Done",
+                "vehicleWashing": "Done"
+            }
+        },
+        {
+            "date": "09/28/2019",
+            "vehicleType": "Honda Shine",
+            "status": {
+                "vehicleServicing": "In Progress",
+                "vehicleWashing": "In Progress"
+            }
+        }
+    ]
+}

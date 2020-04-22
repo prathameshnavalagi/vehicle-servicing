@@ -31,17 +31,17 @@ class CustomerServiceRequest extends Component{
             customer_id: localStorage.getItem("userId")
         }
         alert(JSON.stringify(vehicleBookingData));
-        // axios.post('http://localhost:3600/vehicle/createVehicleServiceReq',vehicleBookingData)
-        // .then(response=>{
-        //     alert("response="+JSON.stringify(response));
-        //     if(response.data.trackingId!=null)
-        //         alert(response.data.status);
-        //     else
-        //         alert(response.data.error);
-        // })
-        // .catch(err => {
-        //     alert("err="+JSON.stringify(err));
-        // })
+        axios.post('http://localhost:3600/vehicle/createVehicleServiceReq',vehicleBookingData)
+        .then(response=>{
+            alert("response="+JSON.stringify(response));
+            if(response.data.trackingId!=null)
+                alert(response.data.status);
+            else
+                alert(response.data.error);
+        })
+        .catch(err => {
+            alert("err="+JSON.stringify(err));
+        })
     }
 
     handleChange = e => {

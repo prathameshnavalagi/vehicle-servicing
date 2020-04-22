@@ -8,19 +8,18 @@ class Reports extends Component{
     constructor(props){
         super(props);
         this.state={
-
+            reportData: []
         }
     }
-
-    getUserData=()=>{
-        axios.get(`https://jsonplaceholder.typicode.com/users`)
+    
+    componentDidMount(){
+        axios.get(`http://localhost:3002/mock/getReport`)
         .then(response =>{
-            console.log("response..",response);
-            const personsData = response.data;
-            this.props.saveUserData(personsData);
+            //console.log("response..",response);
+            this.setState({reportData: response.data });
         })
         .catch(err=>{
-            this.props.errorInUserData(err)
+            alert(err);
         })
     }
 
@@ -28,44 +27,32 @@ class Reports extends Component{
         return(
             <div>
                 <h2>Reports</h2>
-                <button type="submit" onClick={this.getUserData}>Get Uers</button>
+                {/* <button type="submit" onClick={this.getUserData}>Get Uers</button> */}
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Vehicle Type</th>
+                            <th>Customer Name</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.userData &&
-                         this.renderUserData(this.props.userData)}
+                         {this.renderReportData()}
                     </tbody>
                 </table>
             </div>
         );
     }
-    renderUserData = userData => {
-        return userData.map((x,index)=>(
+    
+    renderReportData() {
+        return this.state.reportData.map((report,index)=>(
             <tr key={index}>
-                <td>{x.name}</td>
+                <td>{report.date}</td>
+                <td>{report.vehicleType}</td>
+                <td>{report.customerName}</td>
             </tr>
         ));
     }
 }
 
-
-
-const mapDispatchToProps = dispatch =>
-bindActionCreators(
-    {
-        ...reportActions
-    },
-    dispatch
-)
-
-const mapStateToProps = state=>{
-    return{
-        userData:state.report.userData
-    };
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Reports);
+export default Reports;

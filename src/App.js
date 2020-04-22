@@ -60,18 +60,25 @@ class App extends Component {
             <ProtectedRoute path="/addUsers" component={ AddingUsers }/>
             <ProtectedRoute path="/manageUsers" component={ ManagingUsers }/>
             <ProtectedRoute path="/serviceRequest" component={ ServiceRequest }/>
-            <ProtectedRoute path="/newService" component={ NewService }/>
+            {/* <ProtectedRoute path="/newService" component={ NewService }/> */}
+            <Route path="/newService" component={ NewService }/>
             <ProtectedRoute path="/pendingService" component={ PendingService }/>
             <ProtectedRoute path="/vehicleCategory" component={ VehicleCategory }/>
-            <ProtectedRoute path="/reports" component={ Reports }/>
+            {/* <ProtectedRoute path="/reports" component={ Reports }/> */}
+            <Route path="/reports" component={ Reports }/>
             <ProtectedRoute path="/customerEnquiry" component={ CustomerEnquiry }/>
 
-            <ProtectedRoute path="/customerDashboard" component={ CustomerDashboard }/>
-            <ProtectedRoute path="/customerServiceRequest" component={ CustomerServiceRequest }/>
-            <ProtectedRoute path="/customerServiceHistory" component={ CustomerServiceHistory }/>
+            {/* <ProtectedRoute path="/customerDashboard" component={ CustomerDashboard }/> */}
+            <Route path="/customerDashboard" component={ CustomerDashboard }/>
+            {/* <ProtectedRoute path="/customerServiceRequest" component={ CustomerServiceRequest }/> */}
+            <Route path="/customerServiceRequest" component={ CustomerServiceRequest }/>
+            {/* <ProtectedRoute path="/customerServiceHistory" component={ CustomerServiceHistory }/> */}
+            <Route path="/customerServiceHistory" component={ CustomerServiceHistory }/>
 
-            <ProtectedRoute path="/supervisorDashboard" component={ SupervisorDashboard }/>
-            <ProtectedRoute path="/supervisorServiceRequest" component={ SupervisorServiceRequest }/>   
+            {/* <ProtectedRoute path="/supervisorDashboard" component={ SupervisorDashboard }/> */}
+            <Route path="/supervisorDashboard" component={ SupervisorDashboard }/>
+            {/* <ProtectedRoute path="/supervisorServiceRequest" component={ SupervisorServiceRequest }/>    */}
+            <Route path="/supervisorServiceRequest" component={ SupervisorServiceRequest }/>
 
             <Route path="/logout" component={ Logout }/>
           </Switch>

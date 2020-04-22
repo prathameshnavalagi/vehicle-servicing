@@ -13,9 +13,11 @@ class NewService extends Component{
         super(props);
         this.state = {
             supervisorName: '',
-            vehicleData : []
+            vehicleData: [],
+            selected: {}
         }
         this.handleChange = this.handleChange.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
     }
 
     handleChange = e => {
@@ -27,6 +29,38 @@ class NewService extends Component{
         });
     }
 
+    handleSelect = (e,index) => {
+        const selected = this.state.selected;        
+        selected[e.target.name] = e.target.checked;
+        console.log(selected.supervisorCheck);
+        if(selected.supervisorCheck){
+            this.state.vehicleData[index]['supervisorAssigned'] = true;
+        }else{
+            this.state.vehicleData[index]['supervisorAssigned'] = false;
+        }
+        console.log(this.state.vehicleData);
+    }
+
+    assignSupervisor = () => {
+        alert("inside assignSupervisor");
+        const assignSupervisorData = {
+            supervisorName: this.state.supervisorName,
+            selectedData: this.state.vehicleData
+        }
+        axios.post(`http://localhost:3002/mock/assignSupervisor`,assignSupervisorData)
+            .then(response =>{
+                alert(response);
+                if(response.data.status == 201){
+                    alert(response.data.message);
+                }else{
+                    alert(response.data.message);
+                }
+            })
+            .catch(err=>{
+                this.props.errorInUserData(err)
+            })
+    }
+    
     componentDidMount() {
         axios.get(`http://localhost:3002/mock/getNewServiceVehcileList`)
             .then(response =>{
@@ -48,12 +82,18 @@ class NewService extends Component{
                     <table>
                         <thead>
                             <tr>
+                                <th>
+                                    <Input type="checkbox" 
+                                    name="supervisorCheck"
+                                    // onChange={this.handleChange} 
+                                    />
+                                </th>
                                 <th>Date</th>
                                 <th>Vehicle Type</th>
                                 <th>Customer Name</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody>                            
                             {this.renderVehicleData()}
                         </tbody>
                         </table>
@@ -66,8 +106,8 @@ class NewService extends Component{
                             value={this.state.supervisorName}
                             onChange={this.handleChange}>
                             <option value="0">--SELECT--</option>
-                            <option value="4-wheeler">4-wheeler</option>
-                            <option value="2-wheeler">2-wheeler</option>
+                            <option value="Shruti Adyalkar">Shruti Adyalkar</option>
+                            <option value="Satyabaji Sahu">Satyabaji Sahu</option>
                         </Input>
                     </div>
                     <br></br>
@@ -77,6 +117,7 @@ class NewService extends Component{
                         className="btn btn-primary w-100 mt-20"
                         value="ASSIGN"
                         id="registerButton"
+                        onClick = {() => this.assignSupervisor()}
                         />
                     </div>
                 </form>
@@ -86,6 +127,13 @@ class NewService extends Component{
     renderVehicleData() {
         return this.state.vehicleData.map((vehicle,index)=>(
             <tr key={index}>
+                <td>
+                    <Input type="checkbox" 
+                    name="supervisorCheck" 
+                    selected = {this.state.selected[index]}
+                    onChange = {(e) => this.handleSelect(e,index)}
+                    />
+                </td>
                 <td>{vehicle.date}</td>
                 <td>{vehicle.vehicleType}</td>
                 <td>{vehicle.customerName}</td>

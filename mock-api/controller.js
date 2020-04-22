@@ -3,7 +3,7 @@ var fs = require("fs");
 
 exports.getUser = (req, res) => {
     console.log("inside getUser"); 
-    var path = 'D:/Prathamesh/workplace/vehicle-servicing/mock-api/manageUserData.json';
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/manageUserData.json';
     try {         
         //console.log(req.params);
         if(req.params){
@@ -57,7 +57,7 @@ exports.getUser = (req, res) => {
 
 exports.updateUser = (req, res) => {
     console.log("inside updateUser");
-    var path = 'D:/Prathamesh/workplace/vehicle-servicing/mock-api/manageUserData.json';
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/manageUserData.json';
     try {
         if(req.body){
             const reqParam = req.body;
@@ -104,13 +104,13 @@ exports.updateUser = (req, res) => {
 };
 
 exports.getNewServiceVehcileList = (req, res) => {
-    console.log("inside getNewServiceVehcileList"); 
-    var path = 'D:/Prathamesh/workplace/vehicle-servicing/mock-api/newServiceVehicleList.json';
+    console.log("inside getNewServiceVehcileList");
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/newServiceVehicleList.json';    
     try {         
         //console.log(req.params);
         fs.readFile(path, function(err, data) { 
             if (err){
-                //console.log("err."+err);
+                console.log("err."+err);
                 res.status(500).send(util.internalServerError);
             } else {
                 var vehicleData = {}
@@ -129,3 +129,147 @@ exports.getNewServiceVehcileList = (req, res) => {
     }
 };
 
+exports.assignSupervisor = (req, res) => {
+    console.log("inside assignSupervisor");
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/newServiceVehicleList.json'; 
+    try {         
+        //console.log(req.params);
+        if(req.body){
+            const reqParam = req.body;
+            fs.readFile(path, function(err, data) { 
+                if (err){
+                    console.log("err."+err);
+                    res.status(500).send(util.internalServerError);
+                } else {
+                    var vehicleData = {}
+                    var vehicleDataArr = [];
+                    vehicleData = JSON.parse(data);
+                    vehicleDataArr = vehicleData.vehicleList;
+                    var selectedDataArr = [];
+                    var supervisorName = reqParam.supervisorName;
+                    selectedDataArr = reqParam.selectedData;
+                    for(var selectedDataArrIndex in selectedDataArr){
+                        if(selectedDataArr[selectedDataArrIndex].supervisorAssigned==true){
+                            vehicleDataArr[selectedDataArrIndex]['supervisorName'] = supervisorName;
+                            vehicleDataArr[selectedDataArrIndex]['supervisorAssigned'] = true;
+                        }else{
+                            vehicleDataArr[selectedDataArrIndex]['supervisorName'] = "";
+                            vehicleDataArr[selectedDataArrIndex]['supervisorAssigned'] = false;
+                        }
+                        if(selectedDataArrIndex == (selectedDataArr.length-1)){
+                            let updatedData = {"vehicleList": vehicleDataArr}
+                            fs.writeFile(path, JSON.stringify(updatedData), (err) => {
+                                console.log(err || 'complete');
+                                if(err){
+                                    res.status(204).send(util.noDataFound);
+                                }else{
+                                    res.status(201).send(util.success);
+                                }
+                            });
+                        }
+                    }
+                }
+            }); 
+        }else{
+            res.status(400).send(util.badRequest);
+        }             
+    } catch (err) {
+        res.status(500).send(util.internalServerError);
+    }
+};
+
+exports.getReport = (req, res) => {
+    console.log("inside getReport"); 
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/report.json';
+    try {
+        fs.readFile(path, function(err, data) { 
+            if (err){
+                //console.log("err."+err);
+                res.status(500).send(util.internalServerError);
+            } else {
+                // Converting to JSON 
+                const response = JSON.parse(data);              
+                //console.log(response); // Print users 
+                const reportData = response.report;
+                if(reportData.length > 0){
+                    res.status(201).send(reportData);
+                }else{
+                    console.log(util.noDataFound);
+                    res.status(204).send(util.noDataFound);
+                }
+            }
+        });              
+    } catch (err) {
+        res.status(500).send(util.internalServerError);
+    }
+};
+
+exports.getServiceBillingDetails = (req, res) => {
+    console.log("inside getServiceBillingDetails"); 
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/trackingDetails.json';
+    try {
+        if(req.params){
+            var reqParam = req.params;
+            fs.readFile(path, function(err, data) { 
+                if (err){
+                    //console.log("err."+err);
+                    res.status(500).send(util.internalServerError);
+                } else {
+                    // Converting to JSON 
+                    const response = JSON.parse(data);              
+                    //console.log(response); // Print users 
+                    const trackingData = response.trackingData;
+                    var vehicleData = [];
+                    if(trackingData.length > 0){
+                        for(var trackingDataIndex in trackingData){
+                            if(trackingData[trackingDataIndex].trackingId == reqParam.trackingId){
+                                vehicleData = trackingData[trackingDataIndex].vehicleList;
+                            }
+                            if(trackingDataIndex == (trackingData.length - 1)){
+                                if(vehicleData.length > 0){
+                                    res.status(201).send(vehicleData);
+                                }else{
+                                    console.log(util.noDataFound);
+                                    res.status(204).send(util.noDataFound);
+                                }
+                            }
+                        }
+                    }else{
+                        console.log(util.noDataFound);
+                        res.status(204).send(util.noDataFound);
+                    }
+                }
+            });
+        }else{
+            res.status(400).send(util.badRequest);
+        }
+    } catch (err) {
+        res.status(500).send(util.internalServerError);
+    }
+};
+
+exports.getServiceHistory = (req, res) => {
+    console.log("inside getServiceHistory"); 
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/servicingHistory.json';
+    try {
+        fs.readFile(path, function(err, data) { 
+            if (err){
+                //console.log("err."+err);
+                res.status(500).send(util.internalServerError);
+            } else {
+                // Converting to JSON 
+                const response = JSON.parse(data);              
+                //console.log(response); // Print users 
+                const serviceHistoryData = response.history;
+                if(serviceHistoryData.length > 0){
+                    res.status(201).send(serviceHistoryData);
+                }else{
+                    console.log(util.noDataFound);
+                    res.status(204).send(util.noDataFound);
+                }                
+            }
+        });
+    } catch (err) {
+        res.status(500).send(util.internalServerError);
+    }
+};

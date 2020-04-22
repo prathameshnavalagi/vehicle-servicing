@@ -1,17 +1,10 @@
 {
-    "vehicleList":[{
-        "date": "09/28/2019",
-        "vehicleType": "Honda Activa",
-        "customerName": "Rucha Kulkarni"
-    },
-    {
-        "date": "08/30/2019",
-        "vehicleType": "Honda Shine",
-        "customerName": "Prathamesh Navalagi"
-    },
-    {
-        "date": "10/09/2019",
-        "vehicleType": "Honda City",
-        "customerName": "Sachin Jadhav"
-    }]
-}
+    "vehicleList":[
+        {
+        "date":"09/28/2019",
+        "vehicleType":"Honda Activa",
+        "customerName":"Rucha Kulkarni",
+        "supervisorAssigned":true,
+        "supervisorName":"Shruti Adyalkar"
+        },
+        {"date":"08/30/2019","vehicleType":"Honda Shine","customerName":"Prathamesh Navalagi","supervisorAssigned":true,"supervisorName":"Shruti Adyalkar"},{"date":"10/09/2019","vehicleType":"Honda City","customerName":"Sachin Jadhav","supervisorAssigned":true,"supervisorName":"Shruti Adyalkar"}]}

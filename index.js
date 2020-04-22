@@ -8,7 +8,7 @@ app.use(function (req, res, next) {
    res.header('Access-Control-Allow-Origin', '*');
    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
    res.header('Access-Control-Expose-Headers', 'Content-Length');
-    res.header('Access-Control-Allow-Headers', 'Accept, Authorization, Content-Type, X-Requested-With, Range');
+   res.header('Access-Control-Allow-Headers', 'Accept, Authorization, Content-Type, X-Requested-With, Range');
    if (req.method === 'OPTIONS') {
       return res.send(200);
   } else {
@@ -19,6 +19,10 @@ app.use(function (req, res, next) {
 app.get('/mock/getUser/:phone',controller.getUser);
 app.post('/mock/updateUser',controller.updateUser);
 app.get('/mock/getNewServiceVehcileList',controller.getNewServiceVehcileList);
+app.post('/mock/assignSupervisor',controller.assignSupervisor);
+app.get('/mock/getReport',controller.getReport);
+app.get('/mock/getServiceBillingDetails/:trackingId',controller.getServiceBillingDetails);
+app.get('/mock/getServiceHistory',controller.getServiceHistory);
 
 var server = app.listen(3002, function () {
    var host = server.address().address

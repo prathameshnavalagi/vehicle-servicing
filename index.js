@@ -23,6 +23,8 @@ app.post('/mock/assignSupervisor',controller.assignSupervisor);
 app.get('/mock/getReport',controller.getReport);
 app.get('/mock/getServiceBillingDetails/:trackingId',controller.getServiceBillingDetails);
 app.get('/mock/getServiceHistory',controller.getServiceHistory);
+app.post('/mock/assignEngineer',controller.assignEngineer);
+app.get('/mock/getServiceAprovalDetails',controller.getServiceAprovalDetails);
 
 var server = app.listen(3002, function () {
    var host = server.address().address

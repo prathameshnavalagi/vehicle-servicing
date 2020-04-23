@@ -152,7 +152,8 @@ exports.assignSupervisor = (req, res) => {
                         if(selectedDataArr[selectedDataArrIndex].supervisorAssigned==true){
                             vehicleDataArr[selectedDataArrIndex]['supervisorName'] = supervisorName;
                             vehicleDataArr[selectedDataArrIndex]['supervisorAssigned'] = true;
-                        }else{
+                        }
+                        else{
                             vehicleDataArr[selectedDataArrIndex]['supervisorName'] = "";
                             vehicleDataArr[selectedDataArrIndex]['supervisorAssigned'] = false;
                         }
@@ -269,6 +270,77 @@ exports.getServiceHistory = (req, res) => {
                 }                
             }
         });
+    } catch (err) {
+        res.status(500).send(util.internalServerError);
+    }
+};
+
+exports.assignEngineer = (req, res) => {
+    console.log("inside assignEngineer");
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/newServiceVehicleList.json'; 
+    try {         
+        //console.log(req.params);
+        if(req.body){
+            const reqParam = req.body;
+            fs.readFile(path, function(err, data) { 
+                if (err){
+                    console.log("err."+err);
+                    res.status(500).send(util.internalServerError);
+                } else {
+                    var vehicleData = {}
+                    var vehicleDataArr = [];
+                    vehicleData = JSON.parse(data);
+                    vehicleDataArr = vehicleData.vehicleList;
+                    var selectedDataArr = [];
+                    var engineerName = reqParam.engineerName;
+                    selectedDataArr = reqParam.selectedData;
+                    for(var selectedDataArrIndex in selectedDataArr){
+                        if(selectedDataArr[selectedDataArrIndex].needEngineer == true){
+                            vehicleDataArr[selectedDataArrIndex]['engineerName'] = engineerName;
+                        }
+                        if(selectedDataArrIndex == (selectedDataArr.length-1)){
+                            let updatedData = {"vehicleList": vehicleDataArr}
+                            fs.writeFile(path, JSON.stringify(updatedData), (err) => {
+                                console.log(err || 'complete');
+                                if(err){
+                                    res.status(204).send(util.noDataFound);
+                                }else{
+                                    res.status(201).send(util.success);
+                                }
+                            });
+                        }
+                    }
+                }
+            }); 
+        }else{
+            res.status(400).send(util.badRequest);
+        }             
+    } catch (err) {
+        res.status(500).send(util.internalServerError);
+    }
+};
+
+exports.getServiceAprovalDetails = (req, res) => {
+    console.log("inside getServiceAprovalDetails");
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/serviceAprovalDetails.json';
+    try {         
+        //console.log(req.params);
+        fs.readFile(path, function(err, data) { 
+            if (err){
+                console.log("err."+err);
+                res.status(500).send(util.internalServerError);
+            } else {
+                var serviceApprovalData = {}
+                var serviceApprovalDataArr = [];
+                serviceApprovalData = JSON.parse(data);
+                serviceApprovalDataArr = serviceApprovalData.serviceAprovalDetails;
+                if(serviceApprovalDataArr.length > 0){
+                    res.status(201).send(serviceApprovalDataArr);
+                }else{
+                    res.status(204).send(util.noDataFound);
+                }
+            }
+        });      
     } catch (err) {
         res.status(500).send(util.internalServerError);
     }

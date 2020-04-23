@@ -14,7 +14,8 @@ class NewService extends Component{
         this.state = {
             supervisorName: '',
             vehicleData: [],
-            selected: {}
+            selected: {},
+            selectedData: []
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
@@ -34,9 +35,9 @@ class NewService extends Component{
         selected[e.target.name] = e.target.checked;
         console.log(selected.supervisorCheck);
         if(selected.supervisorCheck){
-            this.state.vehicleData[index]['supervisorAssigned'] = true;
+            this.state.vehicleData[index]['needSupervisor'] = true;
         }else{
-            this.state.vehicleData[index]['supervisorAssigned'] = false;
+            this.state.vehicleData[index]['needSupervisor'] = false;
         }
         console.log(this.state.vehicleData);
     }
@@ -49,7 +50,7 @@ class NewService extends Component{
         }
         axios.post(`http://localhost:3002/mock/assignSupervisor`,assignSupervisorData)
             .then(response =>{
-                alert(response);
+                //alert(response);
                 if(response.data.status == 201){
                     alert(response.data.message);
                 }else{
@@ -57,7 +58,7 @@ class NewService extends Component{
                 }
             })
             .catch(err=>{
-                this.props.errorInUserData(err)
+                alert(err);
             })
     }
     
@@ -72,6 +73,7 @@ class NewService extends Component{
                 this.props.errorInUserData(err)
             })
     }
+    
     render(){
         return(
             <div>

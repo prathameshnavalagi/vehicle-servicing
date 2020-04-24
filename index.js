@@ -25,6 +25,8 @@ app.get('/mock/getServiceBillingDetails/:trackingId',controller.getServiceBillin
 app.get('/mock/getServiceHistory',controller.getServiceHistory);
 app.post('/mock/assignEngineer',controller.assignEngineer);
 app.get('/mock/getServiceAprovalDetails',controller.getServiceAprovalDetails);
+app.get('/mock/getPendingServices',controller.getPendingServices);
+app.post('/mock/assignToPendingServiceSupervisor',controller.assignToPendingServiceSupervisor);
 
 var server = app.listen(3002, function () {
    var host = server.address().address

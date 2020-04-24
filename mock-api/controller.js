@@ -345,3 +345,71 @@ exports.getServiceAprovalDetails = (req, res) => {
         res.status(500).send(util.internalServerError);
     }
 };
+
+exports.getPendingServices = (req, res) => {
+    console.log("inside getPendingServices");
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/pendingServices.json';
+    try {         
+        //console.log(req.params);
+        fs.readFile(path, function(err, data) { 
+            if (err){
+                console.log("err."+err);
+                res.status(500).send(util.internalServerError);
+            } else {
+                var pendingSetrviceData = {}
+                var pendingSetrviceDataArr = [];
+                pendingSetrviceData = JSON.parse(data);
+                pendingSetrviceDataArr = pendingSetrviceData.pendingServiceList;
+                if(pendingSetrviceDataArr.length > 0){
+                    res.status(201).send(pendingSetrviceDataArr);
+                }else{
+                    res.status(204).send(util.noDataFound);
+                }
+            }
+        });      
+    } catch (err) {
+        res.status(500).send(util.internalServerError);
+    }
+};
+
+exports.assignToPendingServiceSupervisor = (req, res) => {
+    console.log("inside assignToPendingServiceSupervisor");
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/pendingServices.json'; 
+    try {         
+        //console.log(req.params);
+        if(req.body){
+            const reqParam = req.body;
+            fs.readFile(path, function(err, data) { 
+                if (err){
+                    console.log("err."+err);
+                    res.status(500).send(util.internalServerError);
+                } else {
+                    var pendingSetrviceData = {}
+                    var pendingSetrviceDataArr = [];
+                    pendingSetrviceData = JSON.parse(data);
+                    pendingSetrviceDataArr = pendingSetrviceData.pendingServiceList;
+                    if(pendingSetrviceDataArr.length > 0){
+                        var supervisorName = reqParam.supervisorName;
+                        var supervisorIndex = reqParam.index;
+                        pendingSetrviceDataArr[supervisorIndex]['supervisorName'] = supervisorName;
+                        let updatedData = {"pendingServiceList": pendingSetrviceDataArr}
+                        fs.writeFile(path, JSON.stringify(updatedData), (err) => {
+                            console.log(err || 'complete');
+                            if(err){
+                                res.status(204).send(util.noDataFound);
+                            }else{
+                                res.status(201).send(util.success);
+                            }
+                        });
+                    }else{
+                        res.status(204).send(util.noDataFound);
+                    }
+                }
+            });
+        }else{
+            res.status(400).send(util.badRequest);
+        }             
+    } catch (err) {
+        res.status(500).send(util.internalServerError);
+    }
+};

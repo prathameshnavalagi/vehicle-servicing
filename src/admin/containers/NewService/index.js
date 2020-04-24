@@ -49,17 +49,17 @@ class NewService extends Component{
             selectedData: this.state.vehicleData
         }
         axios.post(`http://localhost:3002/mock/assignSupervisor`,assignSupervisorData)
-            .then(response =>{
-                //alert(response);
-                if(response.data.status == 201){
-                    alert(response.data.message);
-                }else{
-                    alert(response.data.message);
-                }
-            })
-            .catch(err=>{
-                alert(err);
-            })
+        .then(response =>{
+            //alert(response);
+            if(response.data.status == 201){
+                alert(response.data.message);
+            }else{
+                alert(response.data.message);
+            }
+        })
+        .catch(err=>{
+            alert(err);
+        })
     }
     
     componentDidMount() {

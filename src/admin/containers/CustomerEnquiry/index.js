@@ -1,27 +1,49 @@
 import React, { Component } from "react";
 import axios from 'axios';
 
-class CustomerEnquiry extends Component{
-    constructor(props){
+class CustomerEnquiry extends Component {
+    constructor(props) {
         super(props)
         this.state = {
-            customerEnquiries: []
+            customerEnquiries: [],
+            customerMsgs: [],
+            customerMsg: "",
+            name: "",
+            showResults: false
         }
     }
 
     componentDidMount() {
         axios.get(`http://localhost:3600/Admin/serviceRequest/viewCustomerEnquiries`)
-            .then(response =>{
+            .then(response => {
                 console.log(response.data);
-                this.setState({customerEnquiries: response.data}) 
+                this.setState({ customerEnquiries: response.data })
                 //console.log(this.state.vehicleCategoryData);
             })
-            .catch(err=>{
-                alert("err="+JSON.stringify(err));
+            .catch(err => {
+                alert("err=" + JSON.stringify(err));
             })
     }
-    render(){
-        return(
+
+    handleChange = (e,index) => {
+        // this.setState({
+        //     name: e.target.value
+        // });
+        console.log(index+" "+e.target.value);
+        this.state.customerMsg = e.target.value;
+        console.log("after set value:"+this.state.customerMsg);
+    };
+
+    showReplyBox = e => {
+        e.preventDefault();
+        alert(e.target.value)
+        this.setState({
+            showResults: true
+        });
+    };
+
+    render() {
+        return (
             <div>
                 <h2>Customer Enquiry</h2>
                 <table>
@@ -40,12 +62,25 @@ class CustomerEnquiry extends Component{
         );
     }
     renderCustomerEnquiriesData() {
-        return this.state.customerEnquiries.map((customerEnquiry,index)=>(
+        return this.state.customerEnquiries.map((customerEnquiry, index) => (
             <tr key={index}>
                 <td>{customerEnquiry.createdTime}</td>
                 <td>{customerEnquiry.name}</td>
                 <td>{customerEnquiry.message}</td>
-                {/* <td>{pendingService.category}</td> */}
+                <td>
+                    <button onClick={this.showReplyBox}>Reply</button>
+                    <div
+                        // nameClass="showName"
+                        style={{ display: this.state.showResults ? "block" : "none" }}
+                    >
+                        <input
+                            placeholder="name"
+                            name="customerMsg"
+                            value={this.state.customerMsgs[index]}
+                            onChange={e => this.handleChange(e, index)}
+                        />
+                    </div>
+                </td>
             </tr>
         ));
     }

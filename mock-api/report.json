@@ -2,16 +2,33 @@
 	"report": [{
 			"date": "09/28/2019",
 			"vehicleType": "Honda Activa",
-			"customerName": "Rucha Kulkarni"
+			"customerName": "Rucha Kulkarni",
+			"billDetails": {
+				"routineService": 699,
+				"labourCharges": 299,
+				"denting_painting": 600,
+				"totalInRs": 1598
+			}
 		},
 		{
 			"date": "08/30/2019",
 			"vehicleType": "Honda Shine",
-			"customerName": "Prathamesh Navalagi"
+			"customerName": "Prathamesh Navalagi",
+			"billDetails": {
+				"routineService": 699,
+				"labourCharges": 299,
+				"totalInRs": 998
+			}
 		}, {
 			"date": "10/09/2019",
 			"vehicleType": "Honda City",
-			"customerName": "Sachin Jadhav"
+			"customerName": "Sachin Jadhav",
+			"billDetails": {
+				"routineService": 699,
+				"labourCharges": 299,
+				"denting_painting": 1200,
+				"totalInRs": 2198
+			}
 		}
 	]
 }

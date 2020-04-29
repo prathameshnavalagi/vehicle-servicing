@@ -23,17 +23,21 @@ class Reports extends Component{
         })
     }
 
+    getBillDetails(billingDetails){
+        alert(JSON.stringify(billingDetails));
+    }
+
     render(){
         return(
             <div>
                 <h2>Reports</h2>
-                {/* <button type="submit" onClick={this.getUserData}>Get Uers</button> */}
                 <table>
                     <thead>
                         <tr>
                             <th>Date</th>
                             <th>Vehicle Type</th>
                             <th>Customer Name</th>
+                            <th>Bill Details</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,6 +54,11 @@ class Reports extends Component{
                 <td>{report.date}</td>
                 <td>{report.vehicleType}</td>
                 <td>{report.customerName}</td>
+                <td>
+                    <button onClick = {() => this.getBillDetails(report.billDetails) }>
+                        View Bill
+                    </button>
+                </td>
             </tr>
         ));
     }

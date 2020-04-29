@@ -26,7 +26,9 @@ class Login extends Component{
         axios.post('http://localhost:3600/auth',loginReqData)
         .then(response=>{
             alert(JSON.stringify(response));  
-            alert(response.data.userrole.role_name); 
+            //alert(response.data.userrole.role_name); 
+            //alert(response.data.userdata.name);
+            localStorage.setItem("userFullName",response.data.userdata.name);
             localStorage.setItem("userToken",response.data.accessToken);
             localStorage.setItem("userRole",response.data.userrole.role_name);
             localStorage.setItem("userId",response.data.userId);

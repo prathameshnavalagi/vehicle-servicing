@@ -27,6 +27,8 @@ app.post('/mock/assignEngineer',controller.assignEngineer);
 app.get('/mock/getServiceAprovalDetails',controller.getServiceAprovalDetails);
 app.get('/mock/getPendingServices',controller.getPendingServices);
 app.post('/mock/assignToPendingServiceSupervisor',controller.assignToPendingServiceSupervisor);
+app.post('/mock/approveVehicleService',controller.approveVehicleService);
+app.post('/mock/assignSupervisorForStatus',controller.assignSupervisorForStatus);
 
 var server = app.listen(3002, function () {
    var host = server.address().address

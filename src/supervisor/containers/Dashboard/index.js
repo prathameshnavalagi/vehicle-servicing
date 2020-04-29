@@ -14,7 +14,9 @@ class SupervisorDashboard extends Component {
       selected: {},
       selectedData: [],
       serviceApprovalData: [],
-      approved: 'Not Approved'
+      approved: 'Not Approved',
+      viewDetails: false,
+      supervisor: ""
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -73,7 +75,7 @@ class SupervisorDashboard extends Component {
         alert(err);
       })
 
-      axios.get(`http://localhost:3002/mock/getServiceAprovalDetails`)
+    axios.get(`http://localhost:3002/mock/getServiceAprovalDetails`)
       .then(response => {
         //console.log(response.data);
         this.setState({ serviceApprovalData: response.data })
@@ -84,9 +86,54 @@ class SupervisorDashboard extends Component {
       })
   }
 
-  // viewDetails(details){
-  //   alert(JSON.stringify(details));
-  // }
+  viewDetails(details) {
+    alert(JSON.stringify(details));
+    this.state.viewDetails = true;
+  }
+
+  approveVehicleService(index) {
+    console.log("approveVehicleService");
+    console.log(index + " " + this.state.approved);
+    const approveStatusData = {
+      status: this.state.approved,
+      index
+    }
+    axios.post(`http://localhost:3002/mock/approveVehicleService`, approveStatusData)
+      .then(response => {
+        //alert(response);
+        if (response.data.status == 201) {
+          alert(response.data.message);
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(err => {
+        alert(err);
+      })
+  }
+
+  assignSupervisor(index){
+    console.log("assignSupervisor");
+    console.log(index+ " " + this.state.supervisor);
+    const assignSupervisorData = {
+      supervisor: this.state.supervisor,
+      index
+    }
+    axios.post(`http://localhost:3002/mock/assignSupervisorForStatus`, assignSupervisorData)
+      .then(response => {
+        //alert(response);
+        if (response.data.status == 201) {
+          alert(response.data.message);
+        } else {
+          alert(response.data.message);
+        }
+      })
+      .catch(err => {
+        alert(err);
+      })
+  }
+
+
   render() {
     const displayPosts = (
       <Tabs>
@@ -145,28 +192,47 @@ class SupervisorDashboard extends Component {
         </TabPanel>
         <TabPanel>
           <div>
-            <form>
-              <div>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Vehicle Type</th>
-                      <th>Customer Name</th>
-                      <th>Status</th>
-                      <th>View Details</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.renderServiceApprovalData()}
-                  </tbody>
-                </table>
-              </div>
-            </form>
+            {/* <form> */}
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Vehicle Type</th>
+                    <th>Customer Name</th>
+                    <th>Status</th>
+                    <th>View Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.renderServiceApprovalData()}
+                </tbody>
+              </table>
+            </div>
+            {/* </form> */}
           </div>
         </TabPanel>
-        <TabPanel>
-          <h2>Any content 3</h2>
+        <TabPanel>        
+        <div>
+            {/* <form> */}
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Vehicle Type</th>
+                    <th>Customer Name</th>
+                    <th>Status</th>
+                    <th>View Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.renderVehicleStatusData()}
+                </tbody>
+              </table>
+            </div>
+            {/* </form> */}
+          </div>
         </TabPanel>
       </Tabs>
     );
@@ -197,15 +263,16 @@ class SupervisorDashboard extends Component {
 
   renderServiceApprovalData() {
     return this.state.serviceApprovalData.map((service, index) => (
-      <tr key={index}>        
+      <tr key={index}>
         <td>{service.date}</td>
         <td>{service.vehicleType}</td>
         <td>{service.customerName}</td>
         <td>{service.approved}</td>
         <td>
-          <button onClick = {() => this.viewDetails(service.status) }>View Details</button>
+          <button onClick={() => this.viewDetails(service.status)}>View Details</button>
         </td>
-        {(service.approved == "Not Approved") && <td>
+        {(service.approved == "Not Approved") && 
+        <td>
           Engineer:{service.engineer}
           <Input type="select" name="approved"
             className="FormField__Input"
@@ -214,7 +281,41 @@ class SupervisorDashboard extends Component {
             <option value="Not Approved">Not Approved</option>
             <option value="Approved">Approved</option>
           </Input>
-        </td>}
+          <button onClick={() => this.approveVehicleService(index)}>
+            DONE
+          </button>
+        </td>
+        }
+      </tr>
+    ));
+  }
+
+  renderVehicleStatusData() {
+    return this.state.serviceApprovalData.map((service, index) => (
+      <tr key={index}>
+        <td>{service.date}</td>
+        <td>{service.vehicleType}</td>
+        <td>{service.customerName}</td>
+        <td>{service.vehicleStatus}</td>
+        <td>
+          <button onClick={() => this.viewDetails(service.status)}>View Details</button>
+        </td>
+        {(service.vehicleStatus == "In Progress") && 
+        <td>
+          Supervisor
+          <Input type="select" name="supervisor"
+            className="FormField__Input"
+            value={this.state.supervisor}
+            onChange={this.handleChange}>
+            <option value="0">--SELECT--</option>
+            <option value="Shruti Adyalkar">Shruti Adyalkar</option>
+            <option value="Satyabaji Sahu">Satyabaji Sahu</option>
+          </Input>
+          <button onClick={() => this.assignSupervisor(index)}>
+            ASSIGN
+          </button>
+        </td>
+        }
       </tr>
     ));
   }

@@ -3,6 +3,7 @@ import classes from './Toolbar.css';
 console.log("in toolbar");
 console.log("userRole:", localStorage.getItem("userRole"));
 console.log("userToken:", localStorage.getItem("userToken"));
+console.log("userFullName:", localStorage.getItem("userFullName"));
 const toolbar = () => {
     //userRole = localStorage.getItem("userRole");
     if(localStorage.getItem("userRole")==="ADMIN"){
@@ -19,6 +20,9 @@ const toolbar = () => {
                     <li><a href="/reports">REPORTS</a></li>
                     <li><a href="/customerEnquiry">CUSTOMER ENQUIRY</a></li>
                     <li><a href="/logout">LOGOUT</a></li>
+                    <p style={{ "color": "Yellow","align":"right" }}>
+                        {localStorage.getItem("userFullName")}
+                    </p>
                 </ul>
                 <nav>
                 </nav>
@@ -32,6 +36,9 @@ const toolbar = () => {
                     <li><a href="/customerServiceRequest">SERVICE REQUEST</a></li>
                     <li><a href="/customerServiceHistory">SERVICE HISTORY</a></li>
                     <li><a href="/logout">LOGOUT</a></li>
+                    <p style={{ "color": "Yellow","align":"right" }}>
+                        {localStorage.getItem("userFullName")}
+                    </p>
                 </ul>
                 <nav>
                 </nav>
@@ -44,6 +51,9 @@ const toolbar = () => {
                     <li><a href="/supervisorDashboard">DASHBOARD</a></li>
                     <li><a href="/supervisorServiceRequest">SERVICE REQUEST</a></li>
                     <li><a href="/logout">LOGOUT</a></li>
+                    <p style={{ "color": "Yellow","align":"right" }}>
+                        {localStorage.getItem("userFullName")}
+                    </p>
                 </ul>
                 <nav>
                 </nav>

@@ -8,26 +8,26 @@ import {
 } from 'react-router-dom';
 
 //Website
-import Login from './website/containers/Login';
-import Home from './website/containers/HomePage';
-import Register from './website/containers/SignUp';
-import About from './website/containers/AboutUs';
-import Price from './website/containers/Price';
-import Offers from './website/containers/Offers';
-import Contact from './website/containers/ContactUs';
-import Logout from './website/containers/Logout';
-import OtpVerification from './website/containers/otpVerification';
+import Login from './website/containers/Login/index';
+import Home from './website/containers/HomePage/index';
+import Register from './website/containers/SignUp/index';
+import About from './website/containers/AboutUs/index';
+import Price from './website/containers/Price/index';
+import Offers from './website/containers/Offers/index';
+import Contact from './website/containers/ContactUs/index';
+import Logout from './website/containers/Logout/index';
+import OtpVerification from './website/containers/otpVerification/index';
 
 //Admin
-import AdminDashboard from './admin/containers/Dashboard';
-import AddingUsers from './admin/containers/AddUsers';
-import ManagingUsers from './admin/containers/ManageUsers';
-import ServiceRequest from './admin/containers/ServiceRequest';
-import NewService from './admin/containers/NewService';
-import PendingService from './admin/containers/PendingService';
-import VehicleCategory from './admin/containers/VehicleCategory';
-import Reports from './admin/containers/Reports';
-import CustomerEnquiry from './admin/containers/CustomerEnquiry';
+import AdminDashboard from './admin/containers/Dashboard/index';
+import AddingUsers from './admin/containers/AddUsers/index';
+import ManagingUsers from './admin/containers/ManageUsers/index';
+import ServiceRequest from './admin/containers/ServiceRequest/index';
+import NewService from './admin/containers/NewService/index';
+import PendingService from './admin/containers/PendingService/index';
+import VehicleCategory from './admin/containers/VehicleCategory/index';
+import Reports from './admin/containers/Reports/index';
+import CustomerEnquiry from './admin/containers/CustomerEnquiry/index';
 
 //Customer
 import CustomerDashboard from './customer/containers/Dashboard/index';

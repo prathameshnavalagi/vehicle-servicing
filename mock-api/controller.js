@@ -413,3 +413,87 @@ exports.assignToPendingServiceSupervisor = (req, res) => {
         res.status(500).send(util.internalServerError);
     }
 };
+
+exports.approveVehicleService = (req, res) => {
+    console.log("inside approveVehicleService");
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/serviceAprovalDetails.json'; 
+    try {         
+        //console.log(req.params);
+        if(req.body){
+            const reqParam = req.body;
+            fs.readFile(path, function(err, data) { 
+                if (err){
+                    console.log("err."+err);
+                    res.status(500).send(util.internalServerError);
+                } else {
+                    var serviceApproveData = {}
+                    var serviceApproveDataArr = [];
+                    serviceApproveData = JSON.parse(data);
+                    serviceApproveDataArr = serviceApproveData.serviceAprovalDetails;
+                    if(serviceApproveDataArr.length > 0){
+                        var serviceStatus = reqParam.status;
+                        var statusIndex = reqParam.index;
+                        serviceApproveDataArr[statusIndex]['approved'] = serviceStatus;
+                        let updatedData = {"serviceAprovalDetails": serviceApproveDataArr}
+                        fs.writeFile(path, JSON.stringify(updatedData), (err) => {
+                            console.log(err || 'complete');
+                            if(err){
+                                res.status(204).send(util.noDataFound);
+                            }else{
+                                res.status(201).send(util.success);
+                            }
+                        });
+                    }else{
+                        res.status(204).send(util.noDataFound);
+                    }
+                }
+            });
+        }else{
+            res.status(400).send(util.badRequest);
+        }             
+    } catch (err) {
+        res.status(500).send(util.internalServerError);
+    }
+};
+
+exports.assignSupervisorForStatus = (req, res) => {
+    console.log("inside assignSupervisorForStatus");
+    var path = 'C:/Users/Shree/Desktop/Prathamesh/workplace/vehicle-servicing/mock-api/serviceAprovalDetails.json'; 
+    try {         
+        //console.log(req.params);
+        if(req.body){
+            const reqParam = req.body;
+            fs.readFile(path, function(err, data) { 
+                if (err){
+                    console.log("err."+err);
+                    res.status(500).send(util.internalServerError);
+                } else {
+                    var serviceApproveData = {}
+                    var serviceApproveDataArr = [];
+                    serviceApproveData = JSON.parse(data);
+                    serviceApproveDataArr = serviceApproveData.serviceAprovalDetails;
+                    if(serviceApproveDataArr.length > 0){
+                        var supervisor = reqParam.supervisor;
+                        var supervisorIndex = reqParam.index;
+                        serviceApproveDataArr[supervisorIndex]['supervisorName'] = supervisor;
+                        let updatedData = {"serviceAprovalDetails": serviceApproveDataArr}
+                        fs.writeFile(path, JSON.stringify(updatedData), (err) => {
+                            console.log(err || 'complete');
+                            if(err){
+                                res.status(204).send(util.noDataFound);
+                            }else{
+                                res.status(201).send(util.success);
+                            }
+                        });
+                    }else{
+                        res.status(204).send(util.noDataFound);
+                    }
+                }
+            });
+        }else{
+            res.status(400).send(util.badRequest);
+        }             
+    } catch (err) {
+        res.status(500).send(util.internalServerError);
+    }
+};

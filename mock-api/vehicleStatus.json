@@ -1,0 +1,47 @@
+{
+	"vehicleStatus": [{
+		"date": "09/28/2019",
+		"vehicleType": "Honda Activa",
+		"customerName": "Rucha Kulkarni",
+		"status": {
+			"vehicleServicing": "Done",
+			"vehicleWashing": "Done"
+		},
+		"engineer": "Shailesh Mali",
+        "approved": "Approved",
+        "vehicleStatus":"Done"
+	}, {
+		"date": "09/28/2019",
+		"vehicleType": "Honda City",
+		"customerName": "Sachin Jadhav",
+		"status": {
+			"vehicleServicing": "Done",
+			"vehicleWashing": "Done"
+		},
+		"engineer": "Shailesh Mali",
+		"approved": "Approved",
+        "vehicleStatus":"In Progress"
+	}, {
+		"date": "09/28/2019",
+		"vehicleType": "Honda Activa",
+		"customerName": "Prathamesh Navalagi",
+		"status": {
+			"vehicleServicing": "Done",
+			"vehicleWashing": "Done"
+		},
+		"engineer": "Akshay Thite",
+		"approved": "Approved",
+        "vehicleStatus":"Done"
+	}, {
+		"date": "09/28/2019",
+		"vehicleType": "Honda Shine",
+		"customerName": "Sachin Khedkar",
+		"status": {
+			"vehicleServicing": "Done",
+			"vehicleWashing": "Done"
+		},
+		"engineer": "Akshay Thite",
+		"approved": "Approved",
+        "vehicleStatus":"In Progress"
+	}]
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Layout from './website/components/Layout/Layout';
-import { ProtectedRoute } from './website/components/ProtectedRoute';
+import Layout from './Layout/Layout';
+import { ProtectedRoute } from './ProtectedRoute';
 import {
   BrowserRouter as Router,
   Switch,

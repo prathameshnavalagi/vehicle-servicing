@@ -1,28 +1,28 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import { viewCustomerEnquiries } from "./actions";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 class CustomerEnquiry extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            customerEnquiries: [],
-            customerMsgs: [],
-            customerMsg: "",
-            name: "",
-            showResults: false
-        }
+        this.state = this.initialState();
+    }
+
+    initialState = () => {
+        return(
+            {
+                customerEnquiries: [],
+                customerMsgs: [],
+                customerMsg: "",
+                name: "",
+                showResults: false
+            }
+        )
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:3600/Admin/serviceRequest/viewCustomerEnquiries`)
-            .then(response => {
-                console.log(response.data);
-                this.setState({ customerEnquiries: response.data })
-                //console.log(this.state.vehicleCategoryData);
-            })
-            .catch(err => {
-                alert("err=" + JSON.stringify(err));
-            })
+        this.props.viewCustomerEnquiries();
     }
 
     handleChange = (e,index) => {
@@ -36,7 +36,7 @@ class CustomerEnquiry extends Component {
 
     showReplyBox = e => {
         e.preventDefault();
-        alert(e.target.value)
+        //alert(e.target.value)
         this.setState({
             showResults: true
         });
@@ -62,28 +62,45 @@ class CustomerEnquiry extends Component {
         );
     }
     renderCustomerEnquiriesData() {
-        return this.state.customerEnquiries.map((customerEnquiry, index) => (
-            <tr key={index}>
-                <td>{customerEnquiry.createdTime}</td>
-                <td>{customerEnquiry.name}</td>
-                <td>{customerEnquiry.message}</td>
-                <td>
-                    <button onClick={this.showReplyBox}>Reply</button>
-                    <div
-                        // nameClass="showName"
-                        style={{ display: this.state.showResults ? "block" : "none" }}
-                    >
-                        <input
-                            placeholder="name"
-                            name="customerMsg"
-                            value={this.state.customerMsgs[index]}
-                            onChange={e => this.handleChange(e, index)}
-                        />
-                    </div>
-                </td>
-            </tr>
-        ));
+        if(this.props.customerEnquiries.length > 0){
+            return this.props.customerEnquiries.map((customerEnquiry, index) => (
+                <tr key={index}>
+                    <td>{customerEnquiry.createdTime}</td>
+                    <td>{customerEnquiry.name}</td>
+                    <td>{customerEnquiry.message}</td>
+                    <td>
+                        <button onClick={this.showReplyBox}>Reply</button>
+                        <div
+                            // nameClass="showName"
+                            style={{ display: this.state.showResults ? "block" : "none" }}
+                        >
+                            <input
+                                placeholder="name"
+                                name="customerMsg"
+                                value={this.state.customerMsgs[index]}
+                                onChange={e => this.handleChange(e, index)}
+                            />
+                        </div>
+                    </td>
+                </tr>
+            ));
+        }
     }
 }
 
-export default CustomerEnquiry;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+        {
+            viewCustomerEnquiries: viewCustomerEnquiries
+        },
+        dispatch
+    );
+}
+
+const mapStateToProps = state =>{
+    return {
+        customerEnquiries: state.customerEnquiryReducer.customerEnquiries || {}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerEnquiry);

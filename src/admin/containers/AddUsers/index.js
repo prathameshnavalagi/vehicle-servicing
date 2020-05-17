@@ -1,186 +1,209 @@
 import React, { Component } from "react";
-import { Input } from 'reactstrap';
+import {
+    Container,
+    Input,
+    FormGroup,
+    Form,
+    FormFeedback,
+    Button
+} from 'reactstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from "redux";
+import { connect } from 'react-redux';
+import { addUsers } from './actions'
 
-class AddingUsers extends Component{
-    constructor(props){
+class AddingUsers extends Component {
+    constructor(props) {
         super(props);
-        this.state = {
-            category:'',
-            name:'',
-            address:'',
-            city:'',
-            phoneNumber:'',
-            email:'',
-            password:'',
-            confirmPassword:''
-        }
+        this.state = this.initialState();
         this.handleChange = this.handleChange.bind(this);
         this.register = this.register.bind(this);
     }
 
-    register = () => {
+    initialState = () => {
+        return (
+            {
+                category: '',
+                name: '',
+                address: '',
+                city: '',
+                phoneNumber: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                submitted: false
+            }
+        )
+    }
+
+    register = async () => {
+        alert("category.."+this.state.category);
         const addUserReqData = {
-            category:this.state.category,
-            name:this.state.name,
-            address:this.state.address,
-            city:this.state.city,
-            email:this.state.email,
+            category: this.state.category,
+            name: this.state.name,
+            address: this.state.address,
+            city: this.state.city,
+            email: this.state.email,
             password: this.state.password,
             phone: this.state.phoneNumber,
             registration_date: new Date()
         }
-        alert("addUserReqData.." + JSON.stringify(addUserReqData));        
-        if(this.state.category==="Customer"){
-            axios.post('http://localhost:3600/Admin/addUsers/customer',addUserReqData)
-            .then(response=>{
-                alert("response="+JSON.stringify(response));
-                if(response.data.id!=null)
-                    alert(response.statusText);
-                else
-                    alert(response.data.error);
-            })
-            .catch(err => {
-                alert("err="+JSON.stringify(err));
-            })
-        }else if(this.state.category==="Employee"){
-            axios.post('http://localhost:3600/Admin/addUsers/employee',addUserReqData)
-            .then(response=>{
-                alert("response="+JSON.stringify(response));
-                if(response.data.id!=null)
-                    alert(response.statusText);
-                else
-                    alert(response.data.error);
-            })
-            .catch(err => {
-                alert("err="+JSON.stringify(err));
-            })
-        }else{
-            alert("Please Select Category");
-        }   
-    }
-    
-    handleChange = (e,propertyName) =>{
-        if(propertyName==='phone')
-            this.setState({phoneNumber: e.target.value});
-        if(propertyName==='pass')
-            this.setState({password: e.target.value});
-        if(propertyName==='category')
-            this.setState({category: e.target.value});
-        if(propertyName==='address')
-            this.setState({address: e.target.value});
-        if(propertyName==='city')
-            this.setState({city: e.target.value});
-        if(propertyName==='confirmPassword')
-            this.setState({confirmPassword: e.target.value});
-        if(propertyName==='email')
-            this.setState({email: e.target.value});
-        if(propertyName==='name')
-            this.setState({name: e.target.value});
+        alert(JSON.stringify(addUserReqData));
+        await this.props.addUsers(addUserReqData);
+        
     }
 
-    render(){
-        return(
+    handleChange = e => {
+        let target = e.target;
+        let name = target.name;
+        let value = target.type == 'checkbox' ? target.checked : target.value;
+        this.setState({
+            [name]: value
+        })
+    }
+
+    render() {
+        return (
             <div>
-                <h2>Add Users</h2>
-                <form>
+                <Container>
+                    <Form>
+                        <h2>Add Users</h2>
+                        {/* <form> */}
                     Category
                     <div>
-                        <Input type="select" name="category" id="exampleSelect"
-                            className="FormField__Input" 
-                            onChange={($event)=>this.handleChange($event,"category")}>
-                            <option value="0">--SELECT--</option>
-                            <option value="Customer">Customer</option>
-                            <option value="Employee">Employee</option>
-                        </Input>
-                    </div>
-                    <br></br>
+                            {/* <FormGroup> */}
+                            <Input type="select" 
+                                name="category"
+                                value={this.state.category}
+                                id="exampleSelect"
+                                className="FormField__Input"
+                                onChange={this.handleChange}>
+                                <option value="0">--SELECT--</option>
+                                <option value="Customer">Customer</option>
+                                <option value="Employee">Employee</option>
+                            </Input>
+                            {/* <div>
+                                category:{submitted && !this.state.category}
+                            </div> */}
+                            {/* <FormFeedback invalid>Category can not be blank !</FormFeedback> */}
+                            {/* </FormGroup> */}
+                        </div>
+                        <br></br>
                     Name
                     <div>
-                        <Input
-                        type="text"
-                        className="form-control form-control-lg"
-                        value={this.state.name}
-                        onChange={($event)=>this.handleChange($event,"name")}
-                        />
-                    </div>
-                    <br></br>
+                            {/* <FormGroup> */}
+                            <Input
+                                type="text"
+                                className="form-control form-control-lg"
+                                name="name"
+                                value={this.state.name}
+                                onChange={this.handleChange}
+                            />
+                            {/* <FormFeedback invalid>name can not be blank !</FormFeedback>
+                            </FormGroup> */}
+                        </div>
+                        <br></br>
                     Address
                     <div>
-                        <Input
-                        type="text"
-                        className="form-control form-control-lg"
-                        value={this.state.address}
-                        onChange={($event)=>this.handleChange($event,"address")}
-                        />
-                    </div>
-                    <br></br>
+                            <Input
+                                type="text"
+                                className="form-control form-control-lg"
+                                name="address"
+                                value={this.state.address}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <br></br>
                     City
                     <div>
-                        <Input
-                        type="text"
-                        className="form-control form-control-lg"
-                        value={this.state.city}
-                        onChange={($event)=>this.handleChange($event,"city")}
-                        />
-                    </div>
-                    <br></br>
+                            <Input
+                                type="text"
+                                className="form-control form-control-lg"
+                                name="city"
+                                value={this.state.city}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <br></br>
                     Phone Number
                     <div>
-                        <Input
-                        type="text"
-                        className="form-control form-control-lg"
-                        value={this.state.phoneNumber}
-                        onChange={($event)=>this.handleChange($event,"phone")}
-                        />
-                    </div>
-                    <br></br>
+                            <Input
+                                type="text"
+                                className="form-control form-control-lg"
+                                name="phoneNumber"
+                                value={this.state.phoneNumber}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <br></br>
                     Email
                     <div>
-                        <Input
-                        type="text"
-                        className="form-control form-control-lg"
-                        value={this.state.email}
-                        onChange={($event)=>this.handleChange($event,"email")}
-                        />
-                    </div>
-                    <br></br>
+                            <Input
+                                type="text"
+                                className="form-control form-control-lg"
+                                name="email"
+                                value={this.state.email}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <br></br>
                     Password
                     <div>
-                        <Input
-                        type="password"
-                        className="form-control form-control-lg"
-                        maxLength="20"
-                        value={this.state.password}
-                        onChange={($event)=>this.handleChange($event,"pass")}
-                        />
-                    </div>
-                    <br></br>
+                            <Input
+                                type="password"
+                                className="form-control form-control-lg"
+                                maxLength="20"
+                                name="password"
+                                value={this.state.password}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <br></br>
                     Confirm Password
                     <div>
-                        <Input
-                        type="password"
-                        className="form-control form-control-lg"
-                        maxLength="20"
-                        value={this.state.confirmPassword}
-                        onChange={($event)=>this.handleChange($event,"confirmPassword")}
-                        />
-                    </div>
-                    <br></br>
-                    <div>
-                        <Input
-                        type="submit"
-                        className="btn btn-primary w-100 mt-20"
-                        value="REGISTER"
-                        id="registerButton"
-                        onClick={()=>this.register()}
-                        />
-                    </div>
-                </form>
+                            <Input
+                                type="password"
+                                className="form-control form-control-lg"
+                                maxLength="20"
+                                name="confirmPassword"
+                                value={this.state.confirmPassword}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <br></br>
+                        <div>
+                            <Input
+                                type="submit"
+                                className="btn btn-primary w-100 mt-20"
+                                value="REGISTER"
+                                id="registerButton"
+                                onClick={() => this.register()}
+                            />
+                            {/* <Button onClick={this.register}>
+                                Submit
+                            </Button> */}
+                        </div>
+                        {/* </form> */}
+                    </Form>
+                </Container>
             </div>
         );
     }
 }
 
-export default withRouter(AddingUsers);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+        {
+            addUsers: addUsers
+        },
+        dispatch
+    );
+}
+
+const mapStateToProps = state => {
+    return {
+        addUserData: state.addUserReducer.addUserData || {}
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddingUsers);

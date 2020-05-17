@@ -1,34 +1,40 @@
 import React, { Component } from "react";
 import { bindActionCreators } from 'redux';
-import { connect }from 'react-redux';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import * as reportActions from './actions';
+import { getReport } from './actions';
 
-class Reports extends Component{
-    constructor(props){
+class Reports extends Component {
+    constructor(props) {
         super(props);
-        this.state={
-            reportData: []
-        }
+        this.state = this.initialState();
     }
-    
-    componentDidMount(){
-        axios.get(`http://localhost:3002/mock/getReport`)
-        .then(response =>{
-            //console.log("response..",response);
-            this.setState({reportData: response.data });
-        })
-        .catch(err=>{
-            alert(err);
-        })
+    initialState = () => {
+        return (
+            {
+            }
+        )
     }
 
-    getBillDetails(billingDetails){
+    componentDidMount() {
+        // axios.get(`http://localhost:3002/mock/getReport`)
+        // .then(response =>{
+        //     //console.log("response..",response);
+        //     this.setState({reportData: response.data });
+        // })
+        // .catch(err=>{
+        //     alert(err);
+        // })
+        this.props.getReport()
+    }
+
+    getBillDetails(billingDetails) {
         alert(JSON.stringify(billingDetails));
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <h2>Reports</h2>
                 <table>
@@ -47,21 +53,38 @@ class Reports extends Component{
             </div>
         );
     }
-    
-    renderReportData() {
-        return this.state.reportData.map((report,index)=>(
-            <tr key={index}>
-                <td>{report.date}</td>
-                <td>{report.vehicleType}</td>
-                <td>{report.customerName}</td>
-                <td>
-                    <button onClick = {() => this.getBillDetails(report.billDetails) }>
-                        View Bill
-                    </button>
-                </td>
-            </tr>
-        ));
+
+    renderReportData() {   
+        if(this.props.reportData.length > 0){
+            return this.props.reportData.map((report,index)=>(
+                <tr key={index}>
+                    <td>{report.date}</td>
+                    <td>{report.vehicleType}</td>
+                    <td>{report.customerName}</td>
+                    <td>
+                        <button onClick = {() => this.getBillDetails(report.billDetails) }>
+                            View Bill
+                        </button>
+                    </td>
+                </tr>
+            ));
+        }             
     }
 }
 
-export default Reports;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+        {
+            getReport: getReport
+        },
+        dispatch
+    );
+}
+
+const mapStateToProps = state => {
+    return {
+        reportData: state.reportReducer.reportData || {}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Reports);
